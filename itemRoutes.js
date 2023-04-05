@@ -5,7 +5,7 @@ const express = require("express");
 const db = require("./fakeDb");
 const router = new express.Router();
 
-const { BadRequestError } = require("./expressError");
+const { BadRequestError, NotFoundError } = require("./expressError");
 
 /** GET /items/:
  *
@@ -31,7 +31,15 @@ router.post("/", function (req, res) {
 });
 
 
+/** GET /items/:name: returns item {item} or 404. */
 
+router.get("/:name", function (req, res, next) {
+  const item = db.items.find(item => item.name === req.params.name);
+  if (!item){
+    throw new NotFoundError();
+  }
+  return res.json(item);
+});
 
 
 
