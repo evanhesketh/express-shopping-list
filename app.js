@@ -2,6 +2,7 @@
 
 const express = require("express");
 const app = express();
+const itemRoutes = require("./itemRoutes");
 
 // useful error class to throw
 const { NotFoundError, BadRequestError } = require("./expressError");
@@ -12,7 +13,8 @@ app.use(express.json());
 // process traditional form data => req.body
 app.use(express.urlencoded());
 
-// Routes go here
+/** handle all requests to '/items' */
+app.use("/items", itemRoutes);
 
 
 /** 404 handler: matches unmatched routes. */
