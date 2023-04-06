@@ -65,7 +65,7 @@ router.patch("/:name", function (req, res) {
 router.delete("/:name", function (req, res) {
   const itemIdx = db.items.findIndex((item) => item.name === req.params.name);
   console.log("itemIndex", itemIdx);
-  if (itemIdx === undefined) {
+  if (itemIdx === -1) {
     throw new NotFoundError();
   }
 
