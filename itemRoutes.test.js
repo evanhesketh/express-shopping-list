@@ -27,3 +27,18 @@ describe("GET /items/", function () {
     });
   });
 });
+
+describe("POST /items/", function () {
+  it("Adds item to list of items", async function () {
+
+    const resp = await request(app)
+      .post("/items/")
+      .send({ name: "cheerios", price: 3.40 });
+
+    expect(resp.statusCode).toEqual(201);
+    expect(resp.body).toEqual({ added: { name: "cheerios", price: 3.40 } });
+    expect(db.items).toContain({ name: "cheerios", price: 3.40 });
+  });
+});
+
+
